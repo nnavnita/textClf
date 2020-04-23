@@ -61,7 +61,7 @@ def evaluate(model, data, feature, label):
                 x = label[0].strip()
                 y = float(label[1].replace('(', '').replace(')', ''))
                 preds.append([x, y])
-            preds = sorted(preds, key=lambda x: (x[1]), reverse=True)[:1]
+            preds = sorted(preds, key=lambda x: (x[1]), reverse=True)[0]
             pred = ','.join([x.replace('-', ' ') for x, y in preds])
         except:  # if no prediction made
             pred = BLANK
