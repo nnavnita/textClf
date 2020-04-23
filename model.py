@@ -44,7 +44,6 @@ def predict(model, data, feature, label):
         except:  # if no prediction made
             pred = [value, BLANK]
         predictions.append(pred)
-    print(predictions)
     return pd.DataFrame(predictions)
 
 
@@ -62,17 +61,14 @@ def evaluate(model, data, feature, label):
                 x = label[0].strip()
                 y = float(label[1].replace('(', '').replace(')', ''))
                 preds.append([x, y])
-            preds = sorted(preds, key=lambda x: (x[1]), reverse=True)[:2]
+            preds = sorted(preds, key=lambda x: (x[1]), reverse=True)[:1]
             pred = ','.join([x.replace('-', ' ') for x, y in preds])
         except:  # if no prediction made
             pred = BLANK
         predicted_labels.append(pred)
     # simple accuracy count
-    count1 = 0
-    count2 = 0
+    count = 0
     for i in range(len(true_labels)):
-        if true_labels[i] in predicted_labels[i]:
-            count2 += 1
-            if true_labels[i] == predicted_labels[i].split(',')[0]:
-                count1 += 1
-    return count1/len(data), count2/len(data)
+        if true_labels[i] == predicted_labels[i]:
+            count += 1
+    return count/len(data)
